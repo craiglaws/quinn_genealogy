@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import emailjs from 'emailjs-com';
 
 function ContactContainer(){
 
@@ -14,12 +15,18 @@ function ContactContainer(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        emailjs.sendForm('craig_gmail', 'contact_form', '.contact-form', 'user_rf5VUuL3NAaVCZYeGJGrX')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            })
         
     }
 
     return(
         <div>
-            <form onSubmit={handleSubmit}>
+            <form className="contact-form" onSubmit={handleSubmit}>
 
                 <label htmlFor="name">Name</label>
                 <input type="text" name="name" id="name" value={form.name} onChange={updateField} />
@@ -29,6 +36,8 @@ function ContactContainer(){
 
                 <label htmlFor="message">Message</label>
                 <input type="text" name="message" id="message" value={form.message} onChange={updateField} />
+
+                <button type="submit">Send</button>
                 
             </form>
         </div>

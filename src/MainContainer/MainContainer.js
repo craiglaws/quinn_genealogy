@@ -6,6 +6,7 @@ import NavBar from '../NavBar/NavBar';
 import ServicesContainer from '../ServicesContainer/ServicesContainer';
 
 function MainContainer() {
+
     return (
         <Router>
             <NavBar/>
