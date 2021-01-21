@@ -1,26 +1,25 @@
-import React, { useState } from 'react';
+import { Route } from 'react-router-dom';
+
 import ServicesMenu from './ServicesMenu';
 import ServicesTreeView from './ServicesTreeView';
 
-function ServicesContainer(props){
+function ServicesContainer(){
 
-    const [userTreeView, setUserTreeView] = useState('menu');
 
-    function handleViewChange(view){
-        setUserTreeView(view)
-    }
-
-    if(userTreeView === 'menu'){
-        return(
-            <ServicesMenu handleViewChange={handleViewChange}/>
-        )}
-
-    if(userTreeView === 'full_tree' || userTreeView === 'half_tree'){
-        return(
-            <ServicesTreeView userTreeView={userTreeView} />
-        )
-    }
-
+    return(
+        <>
+            <Route exact path="/services">
+                <ServicesMenu/>
+            </Route>
+            <Route path="/services/halftree">
+                <ServicesTreeView/>
+            </Route>
+            <Route path="/services/fulltree">
+                <ServicesTreeView/>
+                <ServicesTreeView/>
+            </Route>
+        </>
+    )
 
 }
 

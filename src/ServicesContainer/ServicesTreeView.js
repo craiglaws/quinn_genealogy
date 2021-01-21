@@ -19,16 +19,32 @@ function ServicesTreeView(){
 
     const handleAddNewMember = (e) => {
         e.preventDefault();
-        const newMember = {
-            name: currentEntry.name,
-            dob: currentEntry.dob,
-            birthplace: currentEntry.birthplace,
-            relation: currentEntry.relation,
-            id: uuidv4()
-        };
 
-        setAddedEntries([...addedEntries, newMember])
+        if(!currentEntry.id){
+            const newMember = {
+                name: currentEntry.name,
+                dob: currentEntry.dob,
+                birthplace: currentEntry.birthplace,
+                relation: currentEntry.relation,
+                id: uuidv4()
+            };
+            setAddedEntries([...addedEntries, newMember])
+        }
+        if(currentEntry.id){
+           const tempArray = addedEntries.map(x => 
+               x.id === currentEntry.id ? currentEntry : x
+           );
+           console.log(...tempArray);
+           setAddedEntries(tempArray)
 
+        }
+
+        
+
+        resetFormFields();
+    }
+
+    function resetFormFields(){
         setCurrentEntry({
             name: '',
             dob: '',
@@ -37,9 +53,12 @@ function ServicesTreeView(){
         })
     }
 
-
     function handleDelete(member){
         setAddedEntries(addedEntries.filter(item => item.id !== member.id))
+    }
+
+    function handleUpdate(member){
+        setCurrentEntry(member)
     }
 
     return(
@@ -58,13 +77,13 @@ function ServicesTreeView(){
                     <label htmlFor="relation">Relation</label>
                     <input type="text" name="relation" id="relation" value={currentEntry.relation} onChange={updateField} />
 
-                    <button type="submit">Add Family Member</button>
+                    <button type="submit">Save</button>
 
                 </form>
             </div>
 
             <div className="added-family">
-                <AddedFamily addedEntries={addedEntries} deleteMember={handleDelete} />
+                <AddedFamily addedEntries={addedEntries} deleteMember={handleDelete} updateMember={handleUpdate}/>
             </div>
         </>
     )

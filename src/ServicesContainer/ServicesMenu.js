@@ -1,22 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
-function ServicesMenu(props){
+function ServicesMenu(){
 
-    const handleButton = (e) => {
-        props.handleViewChange(e.target.value);
-    }
+
 
     return(
         <>
             <div>
                 <h2>Full Tree</h2>
-                <button onClick={handleButton} value="full_tree">Start Now</button>
+                <Link to="/services/fulltree">Start Now</Link>
             </div>
 
             <div>
                 <h2>Half Tree</h2>
-                <button onClick={handleButton} value="full_tree">Start Now</button>
+                <Link to="/services/halftree">Start Now</Link>
             </div>
         </>
     )
