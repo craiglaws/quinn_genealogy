@@ -15,7 +15,7 @@ function ContactContainer(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        emailjs.sendForm('', 'contact_form', '.contact-form', '')
+        emailjs.sendForm(process.env.API_USERNAME, 'contact_form', '.contact-form', process.env.API_KEY)
             .then((result) => {
                 console.log(result.text);
             }, (error) => {
