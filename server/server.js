@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
 app.post('/formSubmit', (req, res) => {
   let data = req.body;
   
-
   let smtpTransport = nodemailer.createTransport({
     service: 'Gmail',
     port: 465,
@@ -32,24 +31,21 @@ app.post('/formSubmit', (req, res) => {
     }
   });
   let user = data.userRequestDetails;
-  let htmlUser =  
-      `<p> Name: ${user.name}</p>
-      <p> D.O.B: ${user.dob}</p>
-      <p> Birthplace: ${user.birthplace}</p>
-      <p> Email: ${user.email}</p>
-      <p> Contact Number: ${user.phoneNumber}</p>`
-
-      let motherHtml = data.motherSide ? "<h>Mother's Side</h>" + createHtmlString(data.motherSide) : '';
-      let fatherHtml = data.fatherSide ? "<h>Father's Side</h>" + createHtmlString(data.fatherSide) : '';
+  let htmlUser =  createUserDetailsHtmlString(user);
+      let motherHtml = data.motherSide ? "<h1>Mother's Side</h1>" + createRelativeHtmlString(data.motherSide) : '';
+      let fatherHtml = data.fatherSide ? "<h1>Father's Side</h1>" + createRelativeHtmlString(data.fatherSide) : '';
   
   let mailOptions = {
     from: data.userRequestDetails.email,
     to: 'emily_ralston@hotmail.co.uk',
     subject: `New Request From ${data.userRequestDetails.name}`,
     html: `
+      <div style="font-family:verdana">
         ${htmlUser}
         ${motherHtml}
-        ${fatherHtml}`
+        ${fatherHtml}
+        </div>
+        `
   };
 
   smtpTransport.sendMail(mailOptions,
@@ -64,14 +60,31 @@ app.post('/formSubmit', (req, res) => {
 
 });
 
-function createHtmlString(array){
-  let outPutString = '';
+ function createRelativeHtmlString(array){
+  let outPutString = '<ul style="list-style-type:none;">';
       array.forEach(element => {
         outPutString = outPutString + 
         `<p> Name: ${element.name}</p>
         <p> D.O.B: ${element.dob}</p>
         <p> Birthplace: ${element.birthplace}</p>
-        <p> Relation: ${element.relation}</p> <br>`
+        <p> Relation: ${element.relation}</p> 
+        <br>
+        `
       });
+      outPutString = outPutString + '</ul> <br>';
     return outPutString;
+}
+
+function createUserDetailsHtmlString(user){
+  `
+  <h1 >Contact Details</h1> 
+  <ul style="list-style-type:none;">
+    <p> Name: ${user.name}</p>
+    <p> D.O.B: ${user.dob}</p>
+    <p> Birthplace: ${user.birthplace}</p>
+    <p> Email: ${user.email}</p>
+    <p> Contact Number: ${user.phoneNumber}</p>
+  </ul>
+  <br>
+  `
 }
