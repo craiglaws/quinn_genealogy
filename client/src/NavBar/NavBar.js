@@ -1,21 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import companyLogo from '../images/logo-no-white.png';
 
 function NavBar(){
     return(
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/services">Services</Link>
-                </li>
-                <li>
-                    <Link to="/contact">Contact</Link>
-                </li>
-            </ul>
-        </nav>
+        <nav className='navbar123'>
+                <img className='navbar-logo' src={companyLogo} alt='Quinn Tree Logo'/>
+
+                <div className='navbar-links'>
+                    <Link className='nav-link' to="/">Home</Link>
+                    <Link className='nav-link' to="/services">Services</Link>
+                    <Link className='nav-link' to="/contact">Contact</Link>
+                </div>
+         </nav>
         
     )
 }

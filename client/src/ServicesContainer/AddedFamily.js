@@ -20,14 +20,20 @@ function AddedFamily({addedEntries, deleteMember, updateMember, entryArrayValue}
 
         return(
             <div>
-                {familyMemberComps}
+                <div className='text-center pt-2'>
+                    <h2 className='script-text-2'>Added Family</h2>
+                </div>
+                <div className='row row-cols-1 row-cols-md-3 g-4'>
+                    {familyMemberComps}
+                </div>
             </div>
         )};
 
 
         return(
-            <div>
-                No Family
+            <div className='text-center pt-2'>
+                <h2 className='script-text-2'>Added Family</h2>
+                <p>No family added</p>
             </div>
         )
 }
