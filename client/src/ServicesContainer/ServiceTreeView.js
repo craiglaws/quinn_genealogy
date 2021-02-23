@@ -146,11 +146,13 @@ function ServiceTreeView(props){
 
         if(pageView === 2){
             return(
-                <>
+            <div className='container'>
                 <AddFamilyForm currentEntry={currentEntry1} onUpdateField={updateField} onFormSubmit={handleFormSubmit} entryArrayValue="1" />
                 <AddedFamily addedEntries={addedEntries1} deleteMember={handleDelete} updateMember={handleUpdate} entryArrayValue="1"/>
-                <button onClick={handleMoveToPageThree}>Finish</button>
-            </>
+                <div className='row justify-content-center pb-3'>
+                    <button className='btn btn-primary-drk' onClick={handleMoveToPageThree}>Finish</button>
+                </div>
+            </div>
             )
         }
 

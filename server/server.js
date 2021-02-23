@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 
+require('dotenv').config();
+
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -13,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
 
 
 app.get('/', (req, res) => {
@@ -27,8 +30,8 @@ app.post('/formSubmit', (req, res) => {
     service: 'Gmail',
     port: 465,
     auth: {
-      user: '',
-      pass: ''
+      user: process.env.USER_EMAIL,
+      pass: process.env.USER_PASS
     }
   });
   let user = data.userRequestDetails;
@@ -44,7 +47,7 @@ app.post('/formSubmit', (req, res) => {
   
   let mailOptions = {
     from: data.userRequestDetails.email,
-    to: 'emily_ralston@hotmail.co.uk',
+    to: process.env.USER_EMAIL,
     subject: `New Request From ${data.userRequestDetails.name}`,
     html: `
         ${htmlUser}
